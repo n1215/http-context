@@ -1,7 +1,8 @@
-Additional interfaces for PSR-7 HTTP Messages.  
+# HttpContextInterface and HttpHandlerInterface
+Additional interfaces for PSR-7 HTTP Messages.
 Make PSR-7 HTTP Middlewares (or Applications) simpler and more composable.
 
-# HttpContext
+## HttpContext
 HttpContext holds PSR-7 HTTP request, HTTP response, and state.
 
     interface HttpContextInterface
@@ -23,7 +24,7 @@ HttpContext holds PSR-7 HTTP request, HTTP response, and state.
     }
 
 
-# HttpHandler
+## HttpHandler
 Handles HttpContext.
 
     /**
@@ -35,7 +36,7 @@ Handles HttpContext.
     }
 
 
-# Usage
+# Example
 
     use Psr\Http\Message\ServerRequestInterface;
     use Psr\Http\Message\ResponseInterface;
@@ -90,7 +91,7 @@ Handles HttpContext.
         ->handledBy(new SecondHttpHandler);
 
 
-## compose handler pipeline
+## compose handler pipelined
 
     class HandlerPipeline implements HttpContextInterface {
 
