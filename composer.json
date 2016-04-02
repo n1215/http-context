@@ -1,0 +1,20 @@
+{
+    "name": "n1215/http-context",
+    "description": "Additional interfaces for handling PSR-7 HTTP messages.",
+    "keywords": ["psr-7", "http", "http-message", "context", "handler"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "n1215"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "psr/http-message": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "N1215\\Http\\Context\\": "src/"
+        }
+    }
+}

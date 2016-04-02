@@ -1,0 +1,11 @@
+.DS_Store
+.nbproject
+._*
+.~lock.*
+.buildpath
+.idea
+.project
+.settings
+composer.lock
+vendor/
+
