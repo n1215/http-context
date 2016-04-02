@@ -6,7 +6,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Hold HTTP request, HTTP response, and state.
+ * Holds HTTP request, HTTP response, and state.
  */
 interface HttpContextInterface
 {
