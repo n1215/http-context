@@ -91,9 +91,9 @@ Handles HttpContext.
         ->handledBy(new SecondHttpHandler);
 
 
-## compose handler pipeline
+## compose handler pipeline (it is also a HttpHandler)
 
-    class HandlerPipeline implements HttpContextInterface {
+    class HandlerPipeline implements HttpHandlerInterface {
 
         /**
          * @var HttpHandlerInterface[]
