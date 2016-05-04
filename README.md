@@ -113,6 +113,9 @@ An abstraction of Http middlewares, HTTP applications, or controller actions in 
         public function __invoke(HttpContextInterface $context) : HttpContextInterface
         {
             foreach($this->handlers as $handler) {
+                if($context->isTerminated()) {
+                    return $context;
+                }
                 $context = $handler->__invoke($context);
             }
 
