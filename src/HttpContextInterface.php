@@ -10,9 +10,9 @@ use Psr\Http\Message\ResponseInterface;
  */
 interface HttpContextInterface
 {
-    public function getRequest() : ServerRequestInterface;
+    public function getRequest(): ServerRequestInterface;
 
-    public function getResponse() : ResponseInterface;
+    public function getResponse(): ResponseInterface;
 
     public function isTerminated(): bool;
 
