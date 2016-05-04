@@ -32,7 +32,7 @@ An abstraction of Http middlewares, HTTP applications, or controller actions in 
         public function __invoke(HttpContextInterface $context) : HttpContextInterface;
     }
 
-# comparison with popular PSR-7 middlewares
+# Comparison with popular PSR-7 middlewares
 * No callable chain
 * Naturally compose pipeline
 
