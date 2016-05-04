@@ -1,6 +1,6 @@
 # HttpContextInterface and HttpHandlerInterface
 Additional interfaces for PSR-7 HTTP Messages.
-Make PSR-7 HTTP Middlewares (or Applications) simpler and more composable.
+Make PSR-7 HTTP middlewares (or applications) simpler and more composable.
 
 ## HttpContext
 HttpContext holds PSR-7 HTTP request, HTTP response, and state.
@@ -23,17 +23,21 @@ HttpContext holds PSR-7 HTTP request, HTTP response, and state.
 
     }
 
-
 ## HttpHandler
 Handles HttpContext.
+An abstraction of Http middlewares, HTTP applications, or controller actions in typical MVC web frameworks.
 
-    /**
-     * An abstraction of Http middlewares, HTTP applications, or controller actions in typical MVC web frameworks.
-     */
     interface HttpHandlerInterface
     {
         public function __invoke(HttpContextInterface $context) : HttpContextInterface;
     }
+
+# comparison with popular PSR-7 middlewares
+* No callable chain
+* Naturally compose pipeline
+
+![middleware comparison](img/middleware_comparison.png)
+
 
 
 # Example
@@ -48,6 +52,7 @@ Handles HttpContext.
         public function __invoke(HttpContextInterface $context): HttpContextInterface
         {
             //do stuff
+            $context->getResponse()->getBody()->write('Hello, world!');
             return $context;
         }
 
@@ -61,37 +66,37 @@ Handles HttpContext.
     /**
      * @var ResponseInterface $response
      */
-    $response = new Response;
+    $response = new Response();
 
     $context = new HttpContext($request, $response); // implements HttpContextInterface
 
-    $handler = new HttpHandler;
+    $handler = new HttpHandler();
 
     $newContext = $handler->__invoke($context); // or $handler($context);
 
     $newResponse = $newContext->getResponse();
 
 
-## continuous context handling
+## sequential context handling
 
     $context = new HttpContext($request, $response);
 
-    $first = new FirstHttpHandler; // implements HttpHandlerInterface
-    $second = new SecondHttpHandler; // implements HttpHandlerInterface
+    $first = new FirstHttpHandler(); // implements HttpHandlerInterface
+    $second = new SecondHttpHandler(); // implements HttpHandlerInterface
 
     $newContext = $second($first($context));
 
 
-## continuous context handling (method chain)
+## sequential context handling (method chain)
 
     $context = new HttpContext($request, $response);
 
     $newContext = $context
-        ->handledBy(new FirstHttpHandler);
-        ->handledBy(new SecondHttpHandler);
+        ->handledBy(new FirstHttpHandler());
+        ->handledBy(new SecondHttpHandler());
 
 
-## compose handler pipeline (it is also a HttpHandler)
+## compose handler pipeline as a HttpHandler
 
     class HandlerPipeline implements HttpHandlerInterface {
 
