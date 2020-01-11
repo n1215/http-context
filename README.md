@@ -5,6 +5,7 @@ Make PSR-7 HTTP middlewares (or applications) simpler and more composable.
 ## HttpContext
 HttpContext holds PSR-7 HTTP request, HTTP response, and state.
 
+```php
     interface HttpContextInterface
     {
         public function getRequest() : ServerRequestInterface;
@@ -22,15 +23,18 @@ HttpContext holds PSR-7 HTTP request, HTTP response, and state.
         public function handledBy(HttpHandlerInterface $handler): HttpContextInterface;
 
     }
+```
 
 ## HttpHandler
 Handles HttpContext.
 An abstraction of Http middlewares, HTTP applications, or controller actions in typical MVC web frameworks.
 
+```php
     interface HttpHandlerInterface
     {
         public function __invoke(HttpContextInterface $context) : HttpContextInterface;
     }
+```
 
 # Comparison with popular PSR-7 middlewares
 * No callable chain
@@ -42,6 +46,7 @@ An abstraction of Http middlewares, HTTP applications, or controller actions in 
 
 # Example
 
+```php
     use Psr\Http\Message\ServerRequestInterface;
     use Psr\Http\Message\ResponseInterface;
     use N1215\Http\Context\HttpContextInterface;
@@ -75,29 +80,31 @@ An abstraction of Http middlewares, HTTP applications, or controller actions in 
     $newContext = $handler->__invoke($context); // or $handler($context);
 
     $newResponse = $newContext->getResponse();
-
+```
 
 ## sequential context handling
-
+```php
     $context = new HttpContext($request, $response);
 
     $first = new FirstHttpHandler(); // implements HttpHandlerInterface
     $second = new SecondHttpHandler(); // implements HttpHandlerInterface
 
     $newContext = $second($first($context));
-
+```
 
 ## sequential context handling (method chain)
-
+```php
     $context = new HttpContext($request, $response);
 
     $newContext = $context
         ->handledBy(new FirstHttpHandler());
         ->handledBy(new SecondHttpHandler());
 
+```
 
 ## compose handler pipeline as a HttpHandler
 
+```php
     class HandlerPipeline implements HttpHandlerInterface {
 
         /**
@@ -131,6 +138,7 @@ An abstraction of Http middlewares, HTTP applications, or controller actions in 
     ]);
 
     $newContext = $pipeline($context);
+```
 
 # License
 MIT License.
